@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "Product")
+@Table(name = "PRODUCT")
 public class Product {
     // 상품 정보를 저장하는 테이블
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId; // 상품 고유 아이디
+    private Long id; // 상품 고유 아이디
 
     @Column(name = "restock_round", nullable = false)
     private Long restockRound = 0L; // 상품 재입고 회차

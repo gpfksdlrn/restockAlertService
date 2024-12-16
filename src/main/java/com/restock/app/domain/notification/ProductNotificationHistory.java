@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "ProductNotificationHistory")
+@Table(name = "PRODUCT_NOTIFICATION_HISTORY")
 public class ProductNotificationHistory {
     // 상품별 재입고 알림 전송 이력을 관리하는 테이블
     @Id
@@ -28,4 +28,11 @@ public class ProductNotificationHistory {
 
     @Column(name = "last_sent_user_id")
     private Long lastSentUserId;
+
+    public ProductNotificationHistory(Long productId, Long restockRound, NotificationStatus notificationStatus, Long lastSentUserId) {
+        this.productId = productId;
+        this.restockRound = restockRound;
+        this.notificationStatus = notificationStatus;
+        this.lastSentUserId = lastSentUserId;
+    }
 }

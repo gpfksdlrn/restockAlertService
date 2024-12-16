@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "ProductUserNotification")
+@Table(name = "PRODUCT_USER_NOTIFICATION")
 public class ProductUserNotification {
     // 상품에 대해 알림을 설정한 유저 정보 관리
     @Id

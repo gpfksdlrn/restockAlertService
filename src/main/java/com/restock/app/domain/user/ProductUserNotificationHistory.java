@@ -1,4 +1,4 @@
-package com.restock.app.domain.notification;
+package com.restock.app.domain.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "ProductUserNotificationHistory")
+@Table(name = "PRODUCT_USER_NOTIFICATION_HISTORY")
 public class ProductUserNotificationHistory {
     // 유저별 재입고 알림 전송 이력 관리 테이블
     @Id
@@ -25,10 +25,16 @@ public class ProductUserNotificationHistory {
     @Column(name = "user_id", nullable = false)
     private Long userId; // 유저 ID
 
-    @Column(name = "restock_round")
+    @Column(name = "restock_round", nullable = false)
     private Long restockRound; // 재입고 회차
 
-    @Column(name = "sent_at", updatable = false)
+    @Column(name = "sent_at", nullable = false)
     @CreationTimestamp
     private LocalDateTime sentAt; // 알림 메시지 전송 날짜
+
+    public ProductUserNotificationHistory(Long productId, Long userId, Long restockRound) {
+        this.productId = productId;
+        this.userId = userId;
+        this.restockRound = restockRound;
+    }
 }
