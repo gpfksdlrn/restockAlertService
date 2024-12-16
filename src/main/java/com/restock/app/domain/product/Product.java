@@ -21,4 +21,17 @@ public class Product {
 
     @Column(name = "stock_count", nullable = false)
     private Long stockCount = 0L; // 재고 수량
+
+    // 재고 감소 메서드
+    public void decreaseStock() {
+        if (this.stockCount <= 0) {
+            throw new IllegalStateException("재고가 부족합니다.");
+        }
+        this.stockCount--;
+    }
+
+    // 재입고 회차 증가 메서드
+    public void increaseRestockRound() {
+        this.restockRound++;
+    }
 }
