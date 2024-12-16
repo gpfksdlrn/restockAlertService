@@ -1,21 +1,25 @@
 package com.restock.app.domain.notification;
 
-import com.restock.app.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Table(name = "ProductNotificationHistory")
 public class ProductNotificationHistory {
-
+    // 상품별 재입고 알림 전송 이력을 관리하는 테이블
     @Id
-    @Column(name = "product_id")
-    private Long productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "restock_round")
+    @Column(name = "product_id", nullable = false)
+    private Long productId; // 상품 참조
+
+    @Column(name = "restock_round", nullable = false)
     private Long restockRound; // 재입고 회차
 
     @Enumerated(EnumType.STRING)
@@ -24,16 +28,4 @@ public class ProductNotificationHistory {
 
     @Column(name = "last_sent_user_id")
     private Long lastSentUserId;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", insertable = false, updatable = false)
-    private Product product;
-
-    // Enum 정의
-    public enum NotificationStatus {
-        IN_PROGRESS,
-        CANCELED_BY_SOLD_OUT,
-        CANCELED_BY_ERROR,
-        COMPLETED
-    }
 }

@@ -11,10 +11,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "Product")
 public class Product {
-
+    // 상품 정보를 저장하는 테이블
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
     private Long productId; // 상품 고유 아이디
 
     @Column(name = "restock_round", nullable = false)
