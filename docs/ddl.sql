@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS ProductNotificationHistory (
     notification_status ENUM('IN_PROGRESS', 'CANCELED_BY_SOLD_OUT', 'CANCELED_BY_ERROR', 'COMPLETED') NOT NULL COMMENT '재입고 알림 전송 상태',
     last_sent_user_id BIGINT DEFAULT NULL COMMENT '마지막으로 알림 메시지를 받은 유저 아이디',
     FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE,
+    UNIQUE KEY unique_product_round_status_user (product_id, restock_round, notification_status, last_sent_user_id),
     INDEX idx_product_restock (product_id, restock_round) -- 조회 최적화를 위한 인덱스
 ) COMMENT = '상품별 재입고 알림 전송 이력을 관리하는 테이블';
 
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS ProductUserNotification (
     INDEX idx_product_user (product_id, user_id)
 ) COMMENT = '상품에 대해 알림을 설정한 유저 정보 관리';
 
--- ProductUserNotification 테이블의 user_id 컬럼에 인덱스 추가
+-- ProductUserNotificationHistory 테이블: 유저별 알림 전송 이력을 관리하는 테이블
 CREATE TABLE IF NOT EXISTS ProductUserNotificationHistory (
     id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '고유 알림 전송 이력 ID',
     product_id BIGINT NOT NULL COMMENT '상품 아이디',
@@ -36,5 +37,7 @@ CREATE TABLE IF NOT EXISTS ProductUserNotificationHistory (
     restock_round BIGINT NOT NULL COMMENT '상품 재입고 회차',
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '알림 메시지 전송 날짜',
     FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE,
-    INDEX idx_user_notification_history (product_id, user_id, restock_round)
+    UNIQUE KEY unique_user_notification (product_id, user_id, restock_round),
+    INDEX idx_user_notification_history (product_id, user_id, restock_round),
+    INDEX idx_user_id (user_id)
 ) COMMENT = '유저별 재입고 알림 전송 이력 관리';
