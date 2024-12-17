@@ -1,5 +1,6 @@
 package com.restock.app.interfaces.api.common;
 
+import com.restock.app.interfaces.api.exception.ExceptionCode;
 import com.restock.app.interfaces.api.exception.ExceptionMessage;
 import org.springframework.http.HttpStatus;
 
@@ -9,7 +10,7 @@ import static com.restock.app.interfaces.api.common.ResultType.FAIL;
 import static com.restock.app.interfaces.api.common.ResultType.SUCCESS;
 
 public record CommonRes<T>(
-        ResultType resultType, //
+        ResultType resultType,
         T data,
         ExceptionMessage exception
 ) {
@@ -26,11 +27,11 @@ public record CommonRes<T>(
         return new CommonRes<>(SUCCESS, data, new ExceptionMessage());
     }
 
-    public static <T> CommonRes<T> error(Exception error, HttpStatus status) {
-        return new CommonRes<>(FAIL, null, new ExceptionMessage(error, status));
+    public static CommonRes<?> error(Exception error, HttpStatus status) {
+        return new CommonRes<>(FAIL, new HashMap<>(), new ExceptionMessage(error, status));
     }
 
-    public static CommonRes<?> error(Exception error, Object errorData) {
-        return new CommonRes<>(FAIL, new HashMap<>(), new ExceptionMessage(error, (HttpStatus) errorData));
+    public static CommonRes<?> error(ExceptionCode error, Object errorData) {
+        return new CommonRes<>(FAIL, new HashMap<>(), new ExceptionMessage(error, errorData));
     }
 }
