@@ -4,11 +4,13 @@ import com.restock.app.domain.user.ProductUserNotification;
 import com.restock.app.domain.user.ProductUserNotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class ProductUserNotificationRepositoryImpl implements ProductUserNotificationRepository {
     private final ProductUserNotificationJpaRepository jpaRepository;
     

@@ -4,11 +4,13 @@ import com.restock.app.domain.notification.ProductNotificationHistory;
 import com.restock.app.domain.notification.ProductNotificationHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class ProductNotificationHistoryRepositoryImpl implements ProductNotificationHistoryRepository {
     private final ProductNotificationHistoryJpaRepository jpaRepository;
 
