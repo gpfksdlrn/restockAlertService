@@ -36,7 +36,32 @@ public class NotificationController {
      */
     @PostMapping("/products/{productId}/notifications/re-stock")
     public CommonRes<String> sendRestockNotifications(@PathVariable Long productId) {
-        notificationService.sendNotifications(productId);
-        return CommonRes.success("재입고 알림 전송이 완료되었습니다.");
+        return notificationService.sendNotifications(productId);
+    }
+
+    /**
+     * 재입고 알림 재시도 API
+     * POST /admin/products/{productId}/notifications/re-stock
+     *
+     * @param productId 상품 ID
+     * @return 성공 시:
+     * {
+     *   "resultType": "SUCCESS",
+     *   "data": "재입고 알림 재시도가 완료되었습니다.",
+     *   "exception": null
+     * }
+     * 실패 시:
+     * {
+     *   "resultType": "FAIL",
+     *   "data": {},
+     *   "exception": {
+     *     "code": "404",
+     *     "message": "데이터를 조회할 수 없습니다."
+     *   }
+     * }
+     */
+    @PostMapping("/admin/products/{productId}/notifications/re-stock")
+    public CommonRes<String> retryNotifications(@PathVariable Long productId) {
+        return notificationService.retryNotifications(productId);
     }
 }

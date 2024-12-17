@@ -26,8 +26,8 @@ public record CommonRes<T>(
         return new CommonRes<>(SUCCESS, data, new ExceptionMessage());
     }
 
-    public static CommonRes<?> error(Exception error, HttpStatus status) {
-        return new CommonRes<>(FAIL, new HashMap<>(), new ExceptionMessage(error, status));
+    public static <T> CommonRes<T> error(Exception error, HttpStatus status) {
+        return new CommonRes<>(FAIL, null, new ExceptionMessage(error, status));
     }
 
     public static CommonRes<?> error(Exception error, Object errorData) {
